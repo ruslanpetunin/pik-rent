@@ -1,0 +1,40 @@
+version: '3.1'
+
+services:
+  nginx:
+    build: ./nginx
+    restart: always
+    ports:
+      - 60:80
+    volumes:
+      - ./src:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/conf.d/:/etc/nginx/conf.d
+    depends_on:
+      - php-fpm
+    links:
+      - php-fpm
+
+  php-fpm:
+    build: ./php-fpm
+    restart: always
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    volumes:
+      - ./src:/usr/share/nginx/html
+
+  mysql:
+    build: ./db
+    restart: always
+    ports:
+      - 3307:3306
+    volumes:
+      - ./mysql/my.cnf:/etc/mysql/my.cnf
+    environment:
+      MYSQL_DATABASE: pik-rent
+      MYSQL_USER: ruslan
+      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: 12345678
