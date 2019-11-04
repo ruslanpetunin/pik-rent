@@ -91,7 +91,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
+        'db' => $db['db'],
         'spellChecker' => ['class' => 'app\components\spell_check\SpellChecker']
         /*
         'urlManager' => [

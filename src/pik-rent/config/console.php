@@ -26,7 +26,7 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
+        'db' => $db['dbMigration'],
     ],
     'params' => $params,
     /*
